@@ -5,15 +5,17 @@ namespace CoffeeMachineKata.Test
 {
     public class CoffeeMachineTest
     {
-        [Fact]
-        public void MakeBeverageWithNoSugar()
+        [Theory]
+        [InlineData(BeverageType.Tea, "T::")]
+        [InlineData(BeverageType.Coffee, "C::")]
+        public void MakeBeverageWithNoSugar(BeverageType type, string expectedCommand)
         {
             var drinkMakerSpy = new DrinkMakerSpy();
             var coffeeMachine = new CoffeeMachine(drinkMakerSpy);
 
-            coffeeMachine.Dispense(new Beverage(BeverageType.Tea, 0));
+            coffeeMachine.Dispense(new Beverage(type, 0));
 
-            drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {"T::"});
+            drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {expectedCommand});
         }
     }
 }

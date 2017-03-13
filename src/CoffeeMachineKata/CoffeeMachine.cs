@@ -13,6 +13,8 @@ namespace CoffeeMachineKata
         {
             if (beverage.Type == BeverageType.Tea)
                 _drinkMaker.Make("T::");
+            else if (beverage.Type == BeverageType.Coffee)
+                _drinkMaker.Make("C::");
         }
     }
 }
