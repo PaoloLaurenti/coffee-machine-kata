@@ -18,5 +18,18 @@ namespace CoffeeMachineKata.Test
 
             drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {expectedCommand});
         }
+
+        public void MakeMoreBeverages()
+        {
+            var drinkMakerSpy = new DrinkMakerSpy();
+            var coffeeMachine = new CoffeeMachine(drinkMakerSpy);
+
+            coffeeMachine.Dispense(new Beverage(BeverageType.Coffee, 0));
+            coffeeMachine.Dispense(new Beverage(BeverageType.Tea, 0));
+            coffeeMachine.Dispense(new Beverage(BeverageType.Chocolate, 0));
+            coffeeMachine.Dispense(new Beverage(BeverageType.Tea, 0));
+
+            drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] { "C::", "T::", "H::", "T::" });
+        }
     }
 }
