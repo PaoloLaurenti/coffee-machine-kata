@@ -33,7 +33,15 @@ namespace CoffeeMachineKata.Test
             _coffeeMachine.Dispense(new Beverage(BeverageType.Chocolate, 0));
             _coffeeMachine.Dispense(new Beverage(BeverageType.Tea, 0));
 
-            _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] { "C::", "T::", "H::", "T::" });
+            _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {"C::", "T::", "H::", "T::"});
         }
+
+        //[Fact]
+        //public void MakeTeaWithOneSugar()
+        //{
+        //    _coffeeMachine.Dispense(new Beverage(BeverageType.Tea, 1));
+
+        //    _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {"T:1:0"});
+        //}
     }
 }
