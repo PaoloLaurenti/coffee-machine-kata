@@ -14,6 +14,7 @@ namespace CoffeeMachineKata
             {
                 {BeverageType.Tea, "T::" },
                 {BeverageType.Coffee, "C::" },
+                {BeverageType.Chocolate, "H::" }
             };
         }
 

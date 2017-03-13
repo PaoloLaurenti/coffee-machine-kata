@@ -3,6 +3,7 @@
     public enum BeverageType
     {
         Tea,
-        Coffee
+        Coffee,
+        Chocolate
     }
 }

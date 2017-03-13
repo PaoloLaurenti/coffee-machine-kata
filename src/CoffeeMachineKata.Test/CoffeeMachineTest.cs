@@ -8,6 +8,7 @@ namespace CoffeeMachineKata.Test
         [Theory]
         [InlineData(BeverageType.Tea, "T::")]
         [InlineData(BeverageType.Coffee, "C::")]
+        [InlineData(BeverageType.Chocolate, "H::")]
         public void MakeBeverageWithNoSugar(BeverageType type, string expectedCommand)
         {
             var drinkMakerSpy = new DrinkMakerSpy();
