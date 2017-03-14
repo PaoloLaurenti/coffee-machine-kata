@@ -1,22 +1,22 @@
 namespace CoffeeMachineKata
 {
-    public class DrinkMakerInstruction
+    public class DrinkMakerInstructionBuilder
     {
         private readonly string _instructionPrefix;
         private int _sugarCount;
 
-        public DrinkMakerInstruction(string instructionPrefix)
+        public DrinkMakerInstructionBuilder(string instructionPrefix)
         {
             _instructionPrefix = instructionPrefix;
         }
 
-        public string Serialize => $"{_instructionPrefix}:{SugarInstructionPart}:{StickInstructionPart}";
+        public string Build => $"{_instructionPrefix}:{SugarInstructionPart}:{StickInstructionPart}";
         private string SugarInstructionPart => _sugarCount == 0 ? "" : _sugarCount.ToString();
         private string StickInstructionPart => _sugarCount == 0 ? "" : "0";
 
-        public void WithSugar()
+        public void WithSugar(ushort sugarAmount)
         {
-            _sugarCount++;
+            _sugarCount += sugarAmount;
         }
     }
 }

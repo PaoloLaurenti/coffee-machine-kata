@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,10 +23,7 @@ namespace CoffeeMachineKata
         public void Dispense(Beverage beverage)
         {
             var drinkMakerInstruction = _drinkMakerInstructions[beverage.Type];
-
-            if(beverage.SugarAmount > 0)
-                drinkMakerInstruction.WithSugar();
-
+            drinkMakerInstruction.WithSugar(beverage.SugarAmount);
             _drinkMaker.Make(drinkMakerInstruction.Build);
         }
     }

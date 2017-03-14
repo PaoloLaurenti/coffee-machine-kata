@@ -44,7 +44,7 @@
     <Compile Include="Beverage.cs" />
     <Compile Include="BeverageType.cs" />
     <Compile Include="CoffeeMachine.cs" />
-    <Compile Include="DrinkMakerInstruction.cs" />
+    <Compile Include="DrinkMakerInstructionBuilder.cs" />
     <Compile Include="IDrinkMaker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
