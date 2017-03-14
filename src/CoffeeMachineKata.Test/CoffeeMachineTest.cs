@@ -36,12 +36,12 @@ namespace CoffeeMachineKata.Test
             _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {"C::", "T::", "H::", "T::"});
         }
 
-        //[Fact]
-        //public void MakeTeaWithOneSugar()
-        //{
-        //    _coffeeMachine.Dispense(new Beverage(BeverageType.Tea, 1));
+        [Fact]
+        public void MakeTeaWithOneSugarAndStick()
+        {
+            _coffeeMachine.Dispense(new Beverage(BeverageType.Tea, 1));
 
-        //    _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {"T:1:0"});
-        //}
+            _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] { "T:1:0" });
+        }
     }
 }
