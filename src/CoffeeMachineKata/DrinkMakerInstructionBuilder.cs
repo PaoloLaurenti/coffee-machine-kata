@@ -10,7 +10,6 @@ namespace CoffeeMachineKata
             _instructionPrefix = instructionPrefix;
         }
 
-        public string Build => $"{_instructionPrefix}:{SugarInstructionPart}:{StickInstructionPart}";
         private string SugarInstructionPart => _sugarCount == 0 ? "" : _sugarCount.ToString();
         private string StickInstructionPart => _sugarCount == 0 ? "" : "0";
 
@@ -18,6 +17,11 @@ namespace CoffeeMachineKata
         {
             _sugarCount += sugarAmount;
             return this;
+        }
+
+        public string Build()
+        {
+            return $"{_instructionPrefix}:{SugarInstructionPart}:{StickInstructionPart}";
         }
     }
 }

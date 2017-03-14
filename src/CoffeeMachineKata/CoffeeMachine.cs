@@ -24,7 +24,7 @@ namespace CoffeeMachineKata
         {
             var instruction = _drinkMakerInstructionBuilders[beverage.Type]
                                 .WithSugar(beverage.SugarAmount)
-                                .Build;
+                                .Build();
             _drinkMaker.Make(instruction);
         }
     }
