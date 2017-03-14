@@ -5,6 +5,7 @@ namespace CoffeeMachineKata.Test
 {
     public class CoffeeMachineTest
     {
+        private const decimal EnoughMoney = 100;
         private readonly DrinkMakerSpy _drinkMakerSpy;
         private readonly CoffeeMachine _coffeeMachine;
 
@@ -20,7 +21,7 @@ namespace CoffeeMachineKata.Test
         [InlineData(BeverageType.Chocolate, "H::")]
         public void MakeBeverageWithNoSugar(BeverageType type, string expectedCommand)
         {
-            _coffeeMachine.Dispense(new BeverageRequest(type, 0));
+            _coffeeMachine.Dispense(new BeverageRequest(type, 0, EnoughMoney));
 
             _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {expectedCommand});
         }
@@ -34,7 +35,7 @@ namespace CoffeeMachineKata.Test
         [InlineData(BeverageType.Chocolate, 2, "H:2:0")]
         public void MakeBeverageWithSugarsAndAStick(BeverageType type, ushort sugarsAmount, string expectedCommand)
         {
-            _coffeeMachine.Dispense(new BeverageRequest(type, sugarsAmount));
+            _coffeeMachine.Dispense(new BeverageRequest(type, sugarsAmount, EnoughMoney));
 
             _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] { expectedCommand });
         }
@@ -42,10 +43,10 @@ namespace CoffeeMachineKata.Test
         [Fact]
         public void MakeMoreBeverages()
         {
-            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Coffee, 0));
-            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Tea, 1));
-            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Chocolate, 2));
-            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Tea, 0));
+            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Coffee, 0, EnoughMoney));
+            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Tea, 1, EnoughMoney));
+            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Chocolate, 2, EnoughMoney));
+            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Tea, 0, EnoughMoney));
 
             _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {"C::", "T:1:0", "H:2:0", "T::"});
         }
