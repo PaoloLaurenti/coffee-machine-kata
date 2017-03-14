@@ -20,7 +20,7 @@ namespace CoffeeMachineKata.Test
         [InlineData(BeverageType.Chocolate, "H::")]
         public void MakeBeverageWithNoSugar(BeverageType type, string expectedCommand)
         {
-            _coffeeMachine.Dispense(new Beverage(type, 0));
+            _coffeeMachine.Dispense(new BeverageRequest(type, 0));
 
             _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {expectedCommand});
         }
@@ -28,10 +28,10 @@ namespace CoffeeMachineKata.Test
         [Fact]
         public void MakeMoreBeverages()
         {
-            _coffeeMachine.Dispense(new Beverage(BeverageType.Coffee, 0));
-            _coffeeMachine.Dispense(new Beverage(BeverageType.Tea, 0));
-            _coffeeMachine.Dispense(new Beverage(BeverageType.Chocolate, 0));
-            _coffeeMachine.Dispense(new Beverage(BeverageType.Tea, 0));
+            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Coffee, 0));
+            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Tea, 0));
+            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Chocolate, 0));
+            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Tea, 0));
 
             _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {"C::", "T::", "H::", "T::"});
         }
@@ -45,7 +45,7 @@ namespace CoffeeMachineKata.Test
         [InlineData(BeverageType.Chocolate, 2, "H:2:0")]
         public void MakeBeverageWithSugarsAndAStick(BeverageType type, ushort sugarsAmount, string expectedCommand)
         {
-            _coffeeMachine.Dispense(new Beverage(type, sugarsAmount));
+            _coffeeMachine.Dispense(new BeverageRequest(type, sugarsAmount));
 
             _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] { expectedCommand });
         }

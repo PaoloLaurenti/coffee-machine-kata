@@ -41,10 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Beverage.cs" />
+    <Compile Include="BeverageRequest.cs" />
     <Compile Include="BeverageType.cs" />
     <Compile Include="CoffeeMachine.cs" />
-    <Compile Include="DrinkMakerInstructionBuilder.cs" />
+    <Compile Include="DrinkMakerInstruction.cs" />
     <Compile Include="IDrinkMaker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

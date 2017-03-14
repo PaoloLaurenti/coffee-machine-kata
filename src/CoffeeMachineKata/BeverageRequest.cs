@@ -1,11 +1,11 @@
 namespace CoffeeMachineKata
 {
-    public class Beverage
+    public class BeverageRequest
     {
         public BeverageType Type { get; }
         public ushort SugarAmount { get; }
 
-        public Beverage(BeverageType type, ushort sugarAmount)
+        public BeverageRequest(BeverageType type, ushort sugarAmount)
         {
             Type = type;
             SugarAmount = sugarAmount;
