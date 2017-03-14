@@ -14,9 +14,10 @@ namespace CoffeeMachineKata
         private string SugarInstructionPart => _sugarCount == 0 ? "" : _sugarCount.ToString();
         private string StickInstructionPart => _sugarCount == 0 ? "" : "0";
 
-        public void WithSugar(ushort sugarAmount)
+        public DrinkMakerInstructionBuilder WithSugar(ushort sugarAmount)
         {
             _sugarCount += sugarAmount;
+            return this;
         }
     }
 }

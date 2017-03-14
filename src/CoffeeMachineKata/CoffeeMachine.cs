@@ -7,24 +7,25 @@ namespace CoffeeMachineKata
     public class CoffeeMachine
     {
         private readonly IDrinkMaker _drinkMaker;
-        private readonly Dictionary<BeverageType, DrinkMakerInstructionBuilder> _drinkMakerInstructions;
+        private readonly Dictionary<BeverageType, DrinkMakerInstructionBuilder> _drinkMakerInstructionBuilders;
 
         public CoffeeMachine(IDrinkMaker drinkMaker)
         {
             _drinkMaker = drinkMaker;
-            _drinkMakerInstructions = new Dictionary<BeverageType, DrinkMakerInstructionBuilder>
+            _drinkMakerInstructionBuilders = new Dictionary<BeverageType, DrinkMakerInstructionBuilder>
             {
                 {BeverageType.Tea, new DrinkMakerInstructionBuilder("T")},
                 {BeverageType.Coffee, new DrinkMakerInstructionBuilder("C")},
                 {BeverageType.Chocolate, new DrinkMakerInstructionBuilder("H")}
             };
         }
-            
+
         public void Dispense(Beverage beverage)
         {
-            var drinkMakerInstruction = _drinkMakerInstructions[beverage.Type];
-            drinkMakerInstruction.WithSugar(beverage.SugarAmount);
-            _drinkMaker.Make(drinkMakerInstruction.Build);
+            var instruction = _drinkMakerInstructionBuilders[beverage.Type]
+                                .WithSugar(beverage.SugarAmount)
+                                .Build;
+            _drinkMaker.Make(instruction);
         }
     }
 }
