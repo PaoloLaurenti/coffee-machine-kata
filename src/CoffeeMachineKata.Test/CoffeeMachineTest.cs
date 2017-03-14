@@ -25,17 +25,6 @@ namespace CoffeeMachineKata.Test
             _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {expectedCommand});
         }
 
-        [Fact]
-        public void MakeMoreBeverages()
-        {
-            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Coffee, 0));
-            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Tea, 0));
-            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Chocolate, 0));
-            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Tea, 0));
-
-            _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {"C::", "T::", "H::", "T::"});
-        }
-
         [Theory]
         [InlineData(BeverageType.Tea, 1, "T:1:0")]
         [InlineData(BeverageType.Tea, 2, "T:2:0")]
@@ -48,6 +37,17 @@ namespace CoffeeMachineKata.Test
             _coffeeMachine.Dispense(new BeverageRequest(type, sugarsAmount));
 
             _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] { expectedCommand });
+        }
+
+        [Fact]
+        public void MakeMoreBeverages()
+        {
+            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Coffee, 0));
+            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Tea, 1));
+            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Chocolate, 2));
+            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Tea, 0));
+
+            _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {"C::", "T:1:0", "H:2:0", "T::"});
         }
     }
 }
