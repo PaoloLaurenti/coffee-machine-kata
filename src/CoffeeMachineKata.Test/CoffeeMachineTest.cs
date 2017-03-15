@@ -64,5 +64,16 @@ namespace CoffeeMachineKata.Test
 
             _drinkMakerMachineSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] { expectedDrinkMakerMessage });
         }
+
+        [Theory]
+        [InlineData(BeverageType.Tea, 0.4, "T:1:0")]
+        [InlineData(BeverageType.Coffee, 0.6, "C:1:0")]
+        [InlineData(BeverageType.Chocolate, 0.5, "H:1:0")]
+        public void MinimunMoney(BeverageType type, decimal money, string expectedDrinkMakerMessage)
+        {
+            _coffeeMachine.Dispense(new BeverageRequest(type, 1, money));
+
+            _drinkMakerMachineSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] { expectedDrinkMakerMessage });
+        }
     }
 }

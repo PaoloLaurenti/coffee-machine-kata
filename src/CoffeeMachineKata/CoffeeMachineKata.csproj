@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BeverageRequest.cs" />
     <Compile Include="BeverageType.cs" />
+    <Compile Include="Cashier.cs" />
     <Compile Include="CoffeeMachine.cs" />
     <Compile Include="DrinkMakerBeverageInstruction.cs" />
     <Compile Include="DrinkMakerMessageInstruction.cs" />
