@@ -5,7 +5,7 @@ namespace CoffeeMachineKata.Test
 {
     public class CoffeeMachineTest
     {
-        private const decimal EnoughMoney = 100;
+        private const decimal EnoughMoney = 100m;
         private readonly DrinkMakerSpy _drinkMakerSpy;
         private readonly CoffeeMachine _coffeeMachine;
 
@@ -49,6 +49,14 @@ namespace CoffeeMachineKata.Test
             _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Tea, 0, EnoughMoney));
 
             _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {"C::", "T:1:0", "H:2:0", "T::"});
+        }
+
+        [Fact]
+        public void NotEnoughMoney()
+        {
+            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Tea, 1, 0.1m));
+
+            _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] { "M:0.3" });
         }
     }
 }
