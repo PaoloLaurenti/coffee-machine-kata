@@ -1,16 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
 namespace CoffeeMachineKata
 {
-    public class CoffeeMachine
+    internal class Cashier
     {
         private readonly Dictionary<BeverageType, decimal> _priceList;
-        private readonly IDrinkMakerMachine _drinkMakerMachine;
 
-        public CoffeeMachine(IDrinkMakerMachine drinkMakerMachine)
+        internal Cashier()
         {
-            _drinkMakerMachine = drinkMakerMachine;
             _priceList = new Dictionary<BeverageType, decimal>
             {
                 {BeverageType.Tea, 0.4m},
@@ -19,15 +18,29 @@ namespace CoffeeMachineKata
             };
         }
 
+        internal void Checkout(BeverageRequest beverageRequest, Action onCheckoutDone, Action<decimal> onCheckoutBlocked)
+        {
+            if (beverageRequest.Money >= _priceList[beverageRequest.Type])
+                onCheckoutDone();
+            else
+                onCheckoutBlocked(_priceList[beverageRequest.Type] - beverageRequest.Money);
+        }
+    }
+
+    public class CoffeeMachine
+    {
+        private readonly IDrinkMakerMachine _drinkMakerMachine;
+        private readonly Cashier _cashier;
+
+        public CoffeeMachine(IDrinkMakerMachine drinkMakerMachine)
+        {
+            _drinkMakerMachine = drinkMakerMachine;
+            _cashier = new Cashier();
+        }
+
         public void Dispense(BeverageRequest beverageRequest)
         {
-            if (beverageRequest.Money < _priceList[beverageRequest.Type])
-            {
-                ShowMissingMoney(beverageRequest);
-                return;
-            }
-
-            MakeBeverage(beverageRequest);
+            _cashier.Checkout(beverageRequest, () => MakeBeverage(beverageRequest), ShowMissingMoney);
         }
 
         private void MakeBeverage(BeverageRequest beverageRequest)
@@ -36,10 +49,9 @@ namespace CoffeeMachineKata
             _drinkMakerMachine.SendInstruction(beverageInstruction.ToString());
         }
 
-        private void ShowMissingMoney(BeverageRequest beverageRequest)
+        private void ShowMissingMoney(decimal money)
         {
-            var missingMoney = _priceList[beverageRequest.Type] - beverageRequest.Money;
-            var message = missingMoney.ToString(CultureInfo.InvariantCulture);
+            var message = money.ToString(CultureInfo.InvariantCulture);
             var messageInstruction = new DrinkMakerMessageInstruction(message).ToString();
             _drinkMakerMachine.SendInstruction(messageInstruction);
         }
