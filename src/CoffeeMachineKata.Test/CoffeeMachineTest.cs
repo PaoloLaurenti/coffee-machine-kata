@@ -51,12 +51,18 @@ namespace CoffeeMachineKata.Test
             _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {"C::", "T:1:0", "H:2:0", "T::"});
         }
 
-        [Fact]
-        public void NotEnoughMoney()
+        [Theory]
+        [InlineData(BeverageType.Tea, 0.3, "M:0.1")]
+        [InlineData(BeverageType.Tea, 0.1, "M:0.3")]
+        [InlineData(BeverageType.Coffee, 0.1, "M:0.5")]
+        [InlineData(BeverageType.Coffee, 0.5, "M:0.1")]
+        [InlineData(BeverageType.Chocolate, 0.1, "M:0.4")]
+        [InlineData(BeverageType.Chocolate, 0.4, "M:0.1")]
+        public void NotEnoughMoney(BeverageType type, decimal money, string expectedDrinkMakerMessage)
         {
-            _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Tea, 1, 0.1m));
+            _coffeeMachine.Dispense(new BeverageRequest(type, 1, money));
 
-            _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] { "M:0.3" });
+            _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] { expectedDrinkMakerMessage });
         }
     }
 }
