@@ -44,8 +44,9 @@
     <Compile Include="BeverageRequest.cs" />
     <Compile Include="BeverageType.cs" />
     <Compile Include="CoffeeMachine.cs" />
-    <Compile Include="DrinkMakerInstruction.cs" />
-    <Compile Include="IDrinkMaker.cs" />
+    <Compile Include="DrinkMakerBeverageInstruction.cs" />
+    <Compile Include="DrinkMakerMessageInstruction.cs" />
+    <Compile Include="IDrinkMakerMachine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

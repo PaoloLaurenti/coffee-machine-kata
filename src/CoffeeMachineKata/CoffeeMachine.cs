@@ -1,15 +1,16 @@
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace CoffeeMachineKata
 {
     public class CoffeeMachine
     {
-        private readonly IDrinkMaker _drinkMaker;
         private readonly Dictionary<BeverageType, decimal> _priceList;
+        private readonly IDrinkMakerMachine _drinkMakerMachine;
 
-        public CoffeeMachine(IDrinkMaker drinkMaker)
+        public CoffeeMachine(IDrinkMakerMachine drinkMakerMachine)
         {
-            _drinkMaker = drinkMaker;
+            _drinkMakerMachine = drinkMakerMachine;
             _priceList = new Dictionary<BeverageType, decimal>
             {
                 {BeverageType.Tea, 0.4m},
@@ -22,12 +23,25 @@ namespace CoffeeMachineKata
         {
             if (beverageRequest.Money < _priceList[beverageRequest.Type])
             {
-                _drinkMaker.Make($"M:{_priceList[beverageRequest.Type] - beverageRequest.Money}");
+                ShowMissingMoney(beverageRequest);
                 return;
             }
 
-            var drinkMakerInstruction = new DrinkMakerInstruction(beverageRequest.Type, beverageRequest.SugarAmount);
-            _drinkMaker.Make(drinkMakerInstruction.ToString());
+            MakeBeverage(beverageRequest);
+        }
+
+        private void MakeBeverage(BeverageRequest beverageRequest)
+        {
+            var beverageInstruction = new DrinkMakerBeverageInstruction(beverageRequest.Type, beverageRequest.SugarAmount);
+            _drinkMakerMachine.SendInstruction(beverageInstruction.ToString());
+        }
+
+        private void ShowMissingMoney(BeverageRequest beverageRequest)
+        {
+            var missingMoney = _priceList[beverageRequest.Type] - beverageRequest.Money;
+            var message = missingMoney.ToString(CultureInfo.InvariantCulture);
+            var messageInstruction = new DrinkMakerMessageInstruction(message).ToString();
+            _drinkMakerMachine.SendInstruction(messageInstruction);
         }
     }
 }

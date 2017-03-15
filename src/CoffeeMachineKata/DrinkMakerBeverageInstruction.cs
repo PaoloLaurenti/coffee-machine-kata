@@ -2,13 +2,13 @@ using System.Collections.Generic;
 
 namespace CoffeeMachineKata
 {
-    public class DrinkMakerInstruction
+    internal class DrinkMakerBeverageInstruction
     {
         private readonly BeverageType _type;
         private readonly ushort _sugarAmount;
         private readonly Dictionary<BeverageType, string> _drinkMakerBeveragesNames;
 
-        public DrinkMakerInstruction(BeverageType type, ushort sugarAmount)
+        internal DrinkMakerBeverageInstruction(BeverageType type, ushort sugarAmount)
         {
             _type = type;
             _sugarAmount = sugarAmount;

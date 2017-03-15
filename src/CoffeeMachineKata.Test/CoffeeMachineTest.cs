@@ -6,13 +6,13 @@ namespace CoffeeMachineKata.Test
     public class CoffeeMachineTest
     {
         private const decimal EnoughMoney = 100m;
-        private readonly DrinkMakerSpy _drinkMakerSpy;
+        private readonly DrinkMakerMachineSpy _drinkMakerMachineSpy;
         private readonly CoffeeMachine _coffeeMachine;
 
         public CoffeeMachineTest()
         {
-            _drinkMakerSpy = new DrinkMakerSpy();
-            _coffeeMachine = new CoffeeMachine(_drinkMakerSpy);
+            _drinkMakerMachineSpy = new DrinkMakerMachineSpy();
+            _coffeeMachine = new CoffeeMachine(_drinkMakerMachineSpy);
         }
 
         [Theory]
@@ -23,7 +23,7 @@ namespace CoffeeMachineKata.Test
         {
             _coffeeMachine.Dispense(new BeverageRequest(type, 0, EnoughMoney));
 
-            _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {expectedCommand});
+            _drinkMakerMachineSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {expectedCommand});
         }
 
         [Theory]
@@ -37,7 +37,7 @@ namespace CoffeeMachineKata.Test
         {
             _coffeeMachine.Dispense(new BeverageRequest(type, sugarsAmount, EnoughMoney));
 
-            _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] { expectedCommand });
+            _drinkMakerMachineSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] { expectedCommand });
         }
 
         [Fact]
@@ -48,7 +48,7 @@ namespace CoffeeMachineKata.Test
             _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Chocolate, 2, EnoughMoney));
             _coffeeMachine.Dispense(new BeverageRequest(BeverageType.Tea, 0, EnoughMoney));
 
-            _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {"C::", "T:1:0", "H:2:0", "T::"});
+            _drinkMakerMachineSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] {"C::", "T:1:0", "H:2:0", "T::"});
         }
 
         [Theory]
@@ -62,7 +62,7 @@ namespace CoffeeMachineKata.Test
         {
             _coffeeMachine.Dispense(new BeverageRequest(type, 1, money));
 
-            _drinkMakerSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] { expectedDrinkMakerMessage });
+            _drinkMakerMachineSpy.CommandsReceived.ShouldAllBeEquivalentTo(new[] { expectedDrinkMakerMessage });
         }
     }
 }

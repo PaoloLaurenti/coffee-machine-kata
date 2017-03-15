@@ -2,15 +2,15 @@ using System.Collections.Generic;
 
 namespace CoffeeMachineKata.Test
 {
-    public class DrinkMakerSpy : IDrinkMaker
+    public class DrinkMakerMachineSpy : IDrinkMakerMachine
     {
-        public DrinkMakerSpy()
+        public DrinkMakerMachineSpy()
         {
             CommandsReceived = new List<string>();
         }
 
         public List<string> CommandsReceived { get; }
-        public void Make(string command)
+        public void SendInstruction(string command)
         {
             CommandsReceived.Add(command);
         }
